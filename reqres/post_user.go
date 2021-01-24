@@ -15,12 +15,12 @@ func PostUser(user UserBody) (PostUserResp, *resty.Response, time.Duration, stri
         SetHeaders(Headers()).
         SetResult(&PostUserResp{}).
         SetBody(user).
-        Post(baseURL + "api/users")
+        Post(baseURL + "/users")
 
     ti      := resp.Request.TraceInfo()
     usrResp := (*resp.Result().(*PostUserResp))
 
-    fmt.Printf("Post User\n\n")
+    fmt.Printf("POST /users\n\n")
     fmt.Println(usrResp.toString())
     fmt.Println(ShowRes(resp, err, ti.ResponseTime))
 

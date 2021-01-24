@@ -7,7 +7,7 @@ import (
 )
 
 // PutUser ...
-func PutUser(user User, body UserBody) (UpdateUserResp, *resty.Response, time.Duration, string) {
+func PutUser(user PostUserResp, body UserBody) (UpdateUserResp, *resty.Response, time.Duration, string) {
     client := resty.New()
 
     resp, err := client.R().

@@ -7,7 +7,7 @@ import (
     "github.com/stretchr/testify/assert"
 )
 
-func TestReqres(t *testing.T) {
+func TestData(t *testing.T) {
     assert := assert.New(t)
 
     usr, resp, time, name := GetUsers()
@@ -18,12 +18,32 @@ func TestReqres(t *testing.T) {
         return
     }
 
-    usrResp := PostUserResp{}
-    usrResp, resp, time, name = PostUser(UserBody{"Josh", "Engineer"})
+    usr, resp, time, name = GetUser(usr)
+    Status(assert, http.StatusOK, resp.StatusCode(), name)
+    RespTime(assert, 350, time, name)
+
+    if(!assert.NotEqual(nil, usr, fmt.Sprint("User Object is nil)"))) {
+        return
+    }
+}
+
+func TestInsert(t *testing.T) {
+    assert := assert.New(t)
+
+    usrResp, resp, time, name := PostUser(UserBody{"Josh", "Engineer"})
     Status(assert, http.StatusCreated, resp.StatusCode(), name)
     RespTime(assert, 375, time, name)
 
     if(!assert.NotEqual(nil, usrResp, fmt.Sprint("PostUserResp Object is nil"))) {
+        return
+    }
+
+    uptResp := UpdateUserResp{}
+    uptResp, resp, time, name = PutUser(usrResp, UserBody{"Smith", "Driver"})
+    Status(assert, http.StatusOK, resp.StatusCode(), name)
+    RespTime(assert, 385, time, name)
+
+    if(!assert.NotEqual(nil, uptResp, fmt.Sprint("UpdateUserResp Object is nil"))) {
         return
     }
 }
