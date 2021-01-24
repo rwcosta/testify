@@ -9,11 +9,16 @@ import (
 
 // Users ...
 type Users struct {
-    Data []User `json:"data"`
+    Data []Data `json:"data"`
 }
 
 // User ...
 type User struct {
+    Data Data `json:"data"`
+}
+
+// Data ...
+type Data struct {
     ID     uint   `json:"id"`
     Email  string `json:"email"`
     First  string `json:"first_name"`
@@ -24,11 +29,11 @@ type User struct {
 func (usr User) toString() string {
     s := ""
 
-    s += fmt.Sprintln("Id....: ", usr.ID)
-    s += fmt.Sprintln("Email.: ", usr.Email)
-    s += fmt.Sprintln("First.: ", usr.First)
-    s += fmt.Sprintln("Last..: ", usr.Last)
-    s += fmt.Sprintln("Avatar: ", usr.Avatar)
+    s += fmt.Sprintln("Id....: ", usr.Data.ID)
+    s += fmt.Sprintln("Email.: ", usr.Data.Email)
+    s += fmt.Sprintln("First.: ", usr.Data.First)
+    s += fmt.Sprintln("Last..: ", usr.Data.Last)
+    s += fmt.Sprintln("Avatar: ", usr.Data.Avatar)
 
     return s
 }
@@ -58,7 +63,7 @@ func (usrResp PostUserResp) toString() string {
     return s
 }
 
-var baseURL = "https://reqres.in/"
+var baseURL = "https://reqres.in/api"
 
 // Headers ...
 func Headers() map[string]string {
