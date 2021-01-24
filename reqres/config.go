@@ -7,18 +7,13 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// UserData ...
+// Users ...
 type Users struct {
-	Data []Data `json:"data"`
+	Data []User `json:"data"`
 }
 
 // User ...
 type User struct {
-	Data Data `json:"data"`
-}
-
-// Data ...
-type Data struct {
 	ID     uint   `json:"id"`
 	Email  string `json:"email"`
 	First  string `json:"first_name"`
@@ -26,31 +21,55 @@ type Data struct {
 	Avatar string `json:"avatar"`
 }
 
-type support struct {
-	URL  string `json:"url"`
-	Text string `json:"text"`
-}
-
-func usrToString(usr User) string {
+func (usr User) toString() string {
 	s := ""
 
-	s += fmt.Sprintln("Id....: ", usr.Data.ID)
-	s += fmt.Sprintln("Email.: ", usr.Data.Email)
-	s += fmt.Sprintln("First.: ", usr.Data.First)
-	s += fmt.Sprintln("Last..: ", usr.Data.Last)
-	s += fmt.Sprintln("Avatar: ", usr.Data.Avatar)
+	s += fmt.Sprintln("Id....: ", usr.ID)
+	s += fmt.Sprintln("Email.: ", usr.Email)
+	s += fmt.Sprintln("First.: ", usr.First)
+	s += fmt.Sprintln("Last..: ", usr.Last)
+	s += fmt.Sprintln("Avatar: ", usr.Avatar)
+
+	return s
+}
+
+// UserBody ...
+type UserBody struct {
+	Name string `json:"name"`
+	Job  string `json:"job"`
+}
+
+// PostUserResp ...
+type PostUserResp struct {
+	Name string `json:"name"`
+	Job  string `json:"job"`
+	ID   string `json:"id"`
+	Date string `json:"createdAt"`
+}
+
+func (usrResp PostUserResp) toString() string {
+	s := ""
+
+	s += fmt.Sprintln("Name: ", usrResp.Name)
+	s += fmt.Sprintln("Job.: ", usrResp.Job)
+	s += fmt.Sprintln("Id..: ", usrResp.ID)
+	s += fmt.Sprintln("Date: ", usrResp.Date)
 
 	return s
 }
 
 var baseURL = "https://reqres.in/"
 
-// Header ...
-func Header() (string, string) {
-	return "Accept", "application/json"
+// Headers ...
+func Headers() map[string]string {
+	return map[string]string {
+		"Accept": "application/json",
+		"Content-Type": "application/json",
+	}
 }
 
-func showRes(resp *resty.Response, err error, ti time.Duration) string {
+// ShowRes ...
+func ShowRes(resp *resty.Response, err error, ti time.Duration) string {
 	s := ""
 
 	if(err != nil) {
@@ -59,6 +78,7 @@ func showRes(resp *resty.Response, err error, ti time.Duration) string {
 
 	s += fmt.Sprintln("Status...: ", resp.Status())
 	s += fmt.Sprintln("Resp Time: ", ti)
+	s += fmt.Sprintf("\n-----------------------------------------\n")
 
 	return s
 }
