@@ -37,4 +37,13 @@ func TestInsert(t *testing.T) {
     if(!assert.NotEqual(nil, usrResp, fmt.Sprint("PostUserResp Object is nil"))) {
         return
     }
+
+    uptResp := UpdateUserResp{}
+    uptResp, resp, time, name = PutUser(usrResp, UserBody{"Smith", "Driver"})
+    Status(assert, http.StatusOK, resp.StatusCode(), name)
+    RespTime(assert, 385, time, name)
+
+    if(!assert.NotEqual(nil, uptResp, fmt.Sprint("UpdateUserResp Object is nil"))) {
+        return
+    }
 }
