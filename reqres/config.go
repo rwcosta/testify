@@ -63,8 +63,8 @@ var baseURL = "https://reqres.in/"
 // Headers ...
 func Headers() map[string]string {
     return map[string]string {
-	    "Accept": "application/json",
-	    "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Content-Type": "application/json",
     }
 }
 

@@ -12,11 +12,11 @@ func GetUsers() (User, *resty.Response, time.Duration, string) {
     client := resty.New()
 
     resp, err := client.R().
-	    EnableTrace().
-	    SetQueryString("page=2").
-	    SetHeaders(Headers()).
-	    SetResult(&Users{}).
-	    Get(baseURL + "api/users")
+        EnableTrace().
+        SetQueryString("page=2").
+        SetHeaders(Headers()).
+        SetResult(&Users{}).
+        Get(baseURL + "api/users")
 
     ti      := resp.Request.TraceInfo()
     usrData := (*resp.Result().(*Users))
