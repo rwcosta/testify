@@ -58,6 +58,23 @@ func (usrResp PostUserResp) toString() string {
     return s
 }
 
+// UpdateUserResp ...
+type UpdateUserResp struct {
+    Name string `json:"name"`
+    Job  string `json:"job"`
+    Date string `json:"updatedAt"`
+}
+
+func (usrResp UpdateUserResp) toString() string {
+    s := ""
+
+    s += fmt.Sprintln("Name: ", usrResp.Name)
+    s += fmt.Sprintln("Job.: ", usrResp.Job)
+    s += fmt.Sprintln("Date: ", usrResp.Date)
+
+    return s
+}
+
 var baseURL = "https://reqres.in/"
 
 // Headers ...
