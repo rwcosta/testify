@@ -16,14 +16,14 @@ func GetUsers() (User, *resty.Response, time.Duration, string) {
         SetQueryString("page=2").
         SetHeaders(Headers()).
         SetResult(&Users{}).
-        Get(baseURL + "api/users")
+        Get(baseURL + "/users")
 
     ti      := resp.Request.TraceInfo()
     usrData := (*resp.Result().(*Users))
     rnd     := rand.New(rand.NewSource(time.Now().Unix()))
-    usr     := usrData.Data[rnd.Intn(len(usrData.Data))]
+    usr     := User{usrData.Data[rnd.Intn(len(usrData.Data))]}
 
-    fmt.Printf("Get Users\n\n")
+    fmt.Printf("GET /users\n\n")
     fmt.Println(usr.toString())
     fmt.Println(ShowRes(resp, err, ti.ResponseTime))
 
