@@ -8,10 +8,8 @@ import (
 )
 
 // GetUsers ...
-func GetUsers() (User, *resty.Response, time.Duration, string) {
-    client := resty.New()
-
-    resp, err := client.R().
+func GetUsers(suite *UserSuite) (User, *resty.Response, time.Duration, string) {
+    resp, err := suite.APIClient.R().
         EnableTrace().
         SetQueryString("page=2").
         SetHeaders(Headers()).

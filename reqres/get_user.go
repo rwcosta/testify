@@ -7,10 +7,8 @@ import (
 )
 
 // GetUser ...
-func GetUser(user User) (User, *resty.Response, time.Duration, string) {
-    client := resty.New()
-
-    resp, err := client.R().
+func GetUser(suite *UserSuite, user User) (User, *resty.Response, time.Duration, string) {
+    resp, err := suite.APIClient.R().
         EnableTrace().
         SetHeaders(Headers()).
         SetResult(&User{}).

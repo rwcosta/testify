@@ -7,10 +7,8 @@ import (
 )
 
 // PostUser ...
-func PostUser(user UserBody) (PostUserResp, *resty.Response, time.Duration, string) {
-    client := resty.New()
-
-    resp, err := client.R().
+func PostUser(suite *UserSuite, user UserBody) (PostUserResp, *resty.Response, time.Duration, string) {
+    resp, err := suite.APIClient.R().
         EnableTrace().
         SetHeaders(Headers()).
         SetResult(&PostUserResp{}).
